@@ -9,8 +9,34 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var salary = ""
+    @State var tipsPercent : Double = 10.5
     var body: some View {
-        Text("Hello, World!")
+        VStack{
+            
+            Text("Tips Calculator")
+                .font(.largeTitle)
+            
+            HStack{
+                Text("$")
+                
+                    .fontWeight(.light).font(.title)
+                TextField("Salary", text: $salary)
+                    .border(Color.black, width: 1)
+            }
+                .padding()
+           
+            HStack{
+                Slider(value: $tipsPercent, in: 1...100, step: 1.0)
+                Text("\(Int(tipsPercent))%")
+            }
+                .padding()
+            if let totalNum = Double(salary) {
+                Text("Tip Amount: $\(totalNum * tipsPercent / 100, specifier: "%0.2f")")
+            } else {
+                Text("Please Enter a Valid Number.")
+            }
+        }
     }
 }
 
